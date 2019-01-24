@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Customer complains platform",
   "main": "index.js",
-  "engines":{
+  "engines": {
     "node": "11.7.0",
     "npm": "6.5.0"
   },
@@ -28,5 +28,9 @@
   "bugs": {
     "url": "https://github.com/civilizador/outloud/issues"
   },
-  "homepage": "https://github.com/civilizador/outloud#readme"
+  "homepage": "https://github.com/civilizador/outloud#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "heroku": "^7.19.4"
+  }
 }
