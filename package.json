@@ -1,0 +1,27 @@
+{
+  "name": "outloud",
+  "version": "1.0.0",
+  "description": "Customer complains platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/civilizador/outloud.git"
+  },
+  "keywords": [
+    "outloud",
+    "complains",
+    "fight",
+    "corporates",
+    "cunsomer",
+    "rights"
+  ],
+  "author": "Asim Salimli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/civilizador/outloud/issues"
+  },
+  "homepage": "https://github.com/civilizador/outloud#readme"
+}
