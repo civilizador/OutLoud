@@ -3,7 +3,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-
+const keys = require("./config/keys");
 
 
 // setting up express
@@ -11,9 +11,25 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 // passport config
 
-passport.use(new GoogleStrategy({
-    
-}));
+passport.use(
+    new GoogleStrategy(
+        {
+         clientID: keys.googleClientID ,
+         clientSecret: keys.googleClientSecret ,
+         callbackURL: '/auth/google/callback'
+        },
+        (accessToken, refreshToken, profile, done) => {
+            console.log(accessToken)
+        }
+    )
+);
+
+app.get(
+    '/auth/google', passport.authenticate('google', 
+    {
+    scope: ['profile', 'email']    
+    })
+);
 
 app.listen(process.env.PORT)
 
@@ -35,8 +51,8 @@ app.listen(process.env.PORT)
 // Linked In strategy
 
 // passport.use(new LinkedInStrategy({
-//   clientID: 77gwif2i9iavu0,
-//   clientSecret: gBOUheiIyljTtmvo,
+//   clientID: keys.linkedinClientID ,
+//   clientSecret: keys.linkedinClientSecret ,
 //   callbackURL: "http://127.0.0.1:5000/auth/linkedin/callback",
 //   scope: ['r_emailaddress', 'r_basicprofile'],
 // }, function(accessToken, refreshToken, profile, done) {
