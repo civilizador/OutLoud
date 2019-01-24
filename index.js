@@ -4,10 +4,16 @@ const mongoose = require('mongoose');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
-const app = express();
 
-// setting 
+
+// setting up express
+  const app = express();
+
+// passport config
+
+passport.use(new GoogleStrategy({
     
+}));
 
 app.listen(process.env.PORT)
 
@@ -29,9 +35,9 @@ app.listen(process.env.PORT)
 // Linked In strategy
 
 // passport.use(new LinkedInStrategy({
-//   clientID: LINKEDIN_KEY,
-//   clientSecret: LINKEDIN_SECRET,
-//   callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+//   clientID: 77gwif2i9iavu0,
+//   clientSecret: gBOUheiIyljTtmvo,
+//   callbackURL: "http://127.0.0.1:5000/auth/linkedin/callback",
 //   scope: ['r_emailaddress', 'r_basicprofile'],
 // }, function(accessToken, refreshToken, profile, done) {
 //   // asynchronous verification, for effect...
