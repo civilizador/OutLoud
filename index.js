@@ -6,30 +6,36 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const keys = require("./config/keys");
 
 
-// setting up express
+// SETTING UP EXPRESS
   const app = express();
 
-// passport config
 
-passport.use(
-    new GoogleStrategy(
-        {
-         clientID: keys.googleClientID ,
-         clientSecret: keys.googleClientSecret ,
-         callbackURL: '/auth/google/callback'
-        },
-        (accessToken, refreshToken, profile, done) => {
-            console.log(accessToken)
-        }
-    )
-);
+//PASSPORT CONFIGURATION
 
-app.get(
-    '/auth/google', passport.authenticate('google', 
-    {
-    scope: ['profile', 'email']    
+    passport.use(
+        new GoogleStrategy(
+            {
+             clientID: keys.googleClientID ,
+             clientSecret: keys.googleClientSecret ,
+             callbackURL: '/auth/google/callback'
+            },
+            accessToken  => {
+                console.log(accessToken)
+            }
+        )
+    );
+    
+    app.get('/',(req,res) => {
+        res.redirect('/auth/google')
     })
-);
+    
+    app.get(
+        '/auth/google', passport.authenticate( 'google', { scope: ['profile', 'email'] } )
+    );
+    
+    app.get(
+        '/auth/google/callback', passport.authenticate('google')
+    );
 
 app.listen(process.env.PORT)
 
