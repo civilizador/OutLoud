@@ -1,42 +1,16 @@
-const express = require('express');
-const passport = require('passport');
-const mongoose = require('mongoose');
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-const keys = require("./config/keys");
-
-
+const   express = require('express'),
+        mongoose = require('mongoose'),
+        LinkedInStrategy = require('passport-linkedin-oauth2').Strategy,
+        FacebookStrategy = require('passport-facebook').Strategy,
+        passportConfig = require("./services/passport.js");
+ 
+      
 // SETTING UP EXPRESS
   const app = express();
 
-
-//PASSPORT CONFIGURATION
-
-    passport.use(
-        new GoogleStrategy(
-            {
-             clientID: keys.googleClientID ,
-             clientSecret: keys.googleClientSecret ,
-             callbackURL: '/auth/google/callback'
-            },
-            accessToken  => {
-                console.log(accessToken)
-            }
-        )
-    );
+   require("./routes/authRoutes.js")(app);
     
-    app.get('/',(req,res) => {
-        res.redirect('/auth/google')
-    })
     
-    app.get(
-        '/auth/google', passport.authenticate( 'google', { scope: ['profile', 'email'] } )
-    );
-    
-    app.get(
-        '/auth/google/callback', passport.authenticate('google')
-    );
-
 app.listen(process.env.PORT)
 
 
@@ -85,3 +59,19 @@ app.listen(process.env.PORT)
 //   successRedirect: '/',
 //   failureRedirect: '/login'
 // }));
+
+
+// Google Strategy
+
+ // passport.use(
+    //     new GoogleStrategy(
+    //         {
+    //          clientID: keys.googleClientID ,
+    //          clientSecret: keys.googleClientSecret ,
+    //          callbackURL: 'https://outloud-react-civilizador.c9users.io/auth/google/callback'
+    //         },
+    //         (accessToken, refreshToken, profile, done)  => {
+    //             console.log(accessToken, refreshToken, profile)
+    //         }
+    //     )
+    // );
