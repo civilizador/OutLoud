@@ -1,77 +1,50 @@
-const   express = require('express'),
-        mongoose = require('mongoose'),
-        LinkedInStrategy = require('passport-linkedin-oauth2').Strategy,
-        FacebookStrategy = require('passport-facebook').Strategy,
-        passportConfig = require("./services/passport.js");
- 
-      
-// SETTING UP EXPRESS
-  const app = express();
+const   express =           require('express'),
+        mongoose =          require('mongoose'),
+        bodyParser =        require("body-parser"),
+        flash    =          require("connect-flash"),
+        methodOverride =    require("method-override"),
+        keys =              require("./config/keys"),
+        passport =          require("passport"),
+        cookieSession =     require("cookie-session"),
+        LinkedInStrategy =  require('passport-linkedin-oauth2').Strategy,
+        FacebookStrategy =  require('passport-facebook').Strategy,
+        passportConfig =    require("./services/passport.js");
+  
+//APP CONFIG
 
+    //  Connecting to DB 
+    mongoose.connect(`mongodb://${keys.mongoUserName}:${keys.mongoPassword}@ds219055.mlab.com:19055/outloud-dev`);
+      
+    // SETTING UP EXPRESS
+        const app = express();
+  
+    //  Express-session configuration
+    app.use(require("express-session")({
+    	secret: keys.sessionSecret,
+    	resave: false,
+    	saveUninitialized: false
+    }));
+    
+    app.set("view engine", "ejs");
+    app.use(flash());
+    app.use(bodyParser.urlencoded({
+    	extended: true
+    }));
+    
+    app.use(express.static("public"));
+    app.use(methodOverride("_method"));
+    app.use(express.static(__dirname + "/public"));
+    
+    
+    //   Creating a function that will check if there is a username/i.e is user loged in or not.
+    app.use(function(req, res, next) {
+    	res.locals.currentUser = req.user; // req.user will either be empty or contain information about user from the request
+    	res.locals.error = req.flash("error");
+    	res.locals.success = req.flash("success");
+    	next();
+    });
    require("./routes/authRoutes.js")(app);
     
-    
-app.listen(process.env.PORT)
+app.listen(process.env.PORT,function(){console.log("Server had been started")})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Linked In strategy
-
-// passport.use(new LinkedInStrategy({
-//   clientID: keys.linkedinClientID ,
-//   clientSecret: keys.linkedinClientSecret ,
-//   callbackURL: "http://127.0.0.1:5000/auth/linkedin/callback",
-//   scope: ['r_emailaddress', 'r_basicprofile'],
-// }, function(accessToken, refreshToken, profile, done) {
-//   // asynchronous verification, for effect...
-//   process.nextTick(function () {
-//     // To keep the example simple, the user's LinkedIn profile is returned to
-//     // represent the logged-in user. In a typical application, you would want
-//     // to associate the LinkedIn account with a user record in your database,
-//     // and return that user instead.
-//     return done(null, profile);
-//   });
-// }));
-// and then authenticate as:
-
-// app.get('/auth/linkedin',
-//   passport.authenticate('linkedin', { state: 'SOME STATE'  }),
-//   function(req, res){
-//     // The request will be redirected to LinkedIn for authentication, so this
-//     // function will not be called.
-//   });
-// the login callback:
-
-// app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-//   successRedirect: '/',
-//   failureRedirect: '/login'
-// }));
-
-
-// Google Strategy
-
- // passport.use(
-    //     new GoogleStrategy(
-    //         {
-    //          clientID: keys.googleClientID ,
-    //          clientSecret: keys.googleClientSecret ,
-    //          callbackURL: 'https://outloud-react-civilizador.c9users.io/auth/google/callback'
-    //         },
-    //         (accessToken, refreshToken, profile, done)  => {
-    //             console.log(accessToken, refreshToken, profile)
-    //         }
-    //     )
-    // );
