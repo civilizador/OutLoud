@@ -18,21 +18,27 @@ const   express =           require('express'),
     // SETTING UP EXPRESS
         const app = express();
   
-    //  Express-session configuration
-    app.use(require("express-session")({
-    	secret: keys.sessionSecret,
-    	resave: false,
-    	saveUninitialized: false
+    //  Cookie-session configuration
+    app.use(cookieSession({
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookie_session_secret]
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     
+    
+    // config default engine for views
     app.set("view engine", "ejs");
+    
+    // connecting flash messages,method overrride and body-parser libs
     app.use(flash());
     app.use(bodyParser.urlencoded({
     	extended: true
     }));
-    
-    app.use(express.static("public"));
     app.use(methodOverride("_method"));
+    
+    // defining default path to public directory
+    app.use(express.static("public"));
     app.use(express.static(__dirname + "/public"));
     
     
