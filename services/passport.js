@@ -27,7 +27,7 @@ passport.deserializeUser((id, done)=>{
 passport.use(new FacebookStrategy({
 	clientID: keys.facebookClientID,
 	clientSecret: keys.facebookClientSecret,
-	callbackURL: 'https://outloud-react-civilizador.c9users.io/auth/facebook/callback',
+	callbackURL: '/auth/facebook/callback',
 	profileFields: ['id', 'emails', 'name']
 }, (accessToken, refreshToken, profile, done) => {
 	// console.log(accessToken, refreshToken, profile)  
@@ -52,7 +52,7 @@ passport.use(new FacebookStrategy({
 passport.use(new LinkedInStrategy({
 	clientID: keys.linkedinClientID,
 	clientSecret: keys.linkedinClientSecret,
-	callbackURL: 'https://outloud-react-civilizador.c9users.io/auth/linkedIn/callback',
+	callbackURL: '/auth/linkedIn/callback',
 	// scope: ['r_emailaddress', 'r_basicprofile']
 	profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
 }, (accessToken, refreshToken, profile, done) => {
