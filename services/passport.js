@@ -54,6 +54,8 @@ passport.use(new LinkedInStrategy({
 	clientID: keys.linkedinClientID,
 	clientSecret: keys.linkedinClientSecret,
 	callbackURL: '/auth/linkedIn/callback',
+	// will allow to run app on cloud 9 in dev and heroku in production.
+	// the other way is specify fqdn with https in keys file
 	proxy:true,
 	// scope: ['r_emailaddress', 'r_basicprofile']
 	profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
