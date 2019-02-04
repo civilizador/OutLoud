@@ -28,7 +28,8 @@ passport.use(new FacebookStrategy({
 	clientID: keys.facebookClientID,
 	clientSecret: keys.facebookClientSecret,
 	callbackURL: '/auth/facebook/callback',
-	profileFields: ['id', 'emails', 'name']
+	profileFields: ['id', 'emails', 'name'],
+	proxy:true
 }, (accessToken, refreshToken, profile, done) => {
 	// console.log(accessToken, refreshToken, profile)  
 	User.findOne({
@@ -53,6 +54,7 @@ passport.use(new LinkedInStrategy({
 	clientID: keys.linkedinClientID,
 	clientSecret: keys.linkedinClientSecret,
 	callbackURL: '/auth/linkedIn/callback',
+	proxy:true,
 	// scope: ['r_emailaddress', 'r_basicprofile']
 	profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
 }, (accessToken, refreshToken, profile, done) => {
