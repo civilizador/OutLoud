@@ -51,6 +51,6 @@ const   express =           require('express'),
     });
    require("./routes/authRoutes.js")(app);
     
-app.listen(process.env.PORT,function(){console.log("Server had been started")})
+app.listen(5000 || process.env.PORT,function(){console.log("Server had been started")})
 
 
