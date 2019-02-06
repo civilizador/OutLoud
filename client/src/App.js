@@ -19,7 +19,7 @@ class App extends Component {
           >
             Learn React
           </a>
-          <a href='http://localhost:5000/auth/facebook'> Sign in with FB </a>
+          <a href='/:8080/auth/facebook'> Sign in with FB </a>
           <a href=''> Sign in with LN </a>
         </header>
       </div>
