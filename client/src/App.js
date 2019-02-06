@@ -19,8 +19,8 @@ class App extends Component {
           >
             Learn React
           </a>
-          <a href='/:8080/auth/facebook'> Sign in with FB </a>
-          <a href=''> Sign in with LN </a>
+          <a href='/auth/facebook'> Sign in with FB </a>
+          <a href='/auth/linkedIn'> Sign in with LN </a>
         </header>
       </div>
     );
