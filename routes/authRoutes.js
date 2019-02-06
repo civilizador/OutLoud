@@ -13,7 +13,7 @@ module.exports = (app) => {
         scope : ['email'] }));
  
     app.get('/auth/facebook/callback',passport.authenticate('facebook', { 
-        successRedirect: '/',
+        successRedirect: '/landing.ejs',
         failureRedirect: '/login' 
     }));
 
