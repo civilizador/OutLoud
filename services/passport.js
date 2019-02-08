@@ -30,23 +30,18 @@ passport.use(new FacebookStrategy({
 	callbackURL: '/auth/facebook/callback',
 	profileFields: ['id', 'emails', 'name'],
 	proxy:true
-}, (accessToken, refreshToken, profile, done) => {
+}, async (accessToken, refreshToken, profile, done) => {
 	// console.log(accessToken, refreshToken, profile)  
-	User.findOne({
-		fbId: profile.id
-	}).then(existingUser => {
+	const existingUser = await User.findOne({fbId: profile.id});
 		if (existingUser) {
 			console.log('User exist with following FBID: ' + existingUser)
 			done(null, existingUser)
 		} else {
 			console.log('User was created with following FBID: ' + profile.id)
-			new User({
-				fbId: profile.id
-			}).save().then(user => done(null, user))
+			const user = await new User({fbId: profile.id}).save()
+			done(null, user)
 		}
-	})
 }));
-
 
 //  PASSPORT LINKED IN CONFIGURATION
 
@@ -59,22 +54,19 @@ passport.use(new LinkedInStrategy({
 	proxy:true,
 	// scope: ['r_emailaddress', 'r_basicprofile']
 	profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
-}, (accessToken, refreshToken, profile, done) => {
+}, async (accessToken, refreshToken, profile, done) => {
 	// console.log(accessToken, refreshToken, profile)  
-	User.findOne({
-		lnId: profile.id
-	}).then(existingUser => {
+	const existingUser = await User.findOne({lnId: profile.id});
 		if (existingUser) {
 			console.log('User exist with following LNID: ' + existingUser)
 			done(null, existingUser)
 		} else {
 			console.log('User was created with following LNID: ' + profile.id)
-			new User({
-				lnId: profile.id
-			}).save().then(user => done(null, user))
+			const user = await new User({lnId: profile.id}).save()
+			done(null, user)
 		}
 	})
-}));
+);
 
 
 // Google Strategy
