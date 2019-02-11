@@ -2,9 +2,6 @@ const  passport = require('passport');
        
 
 module.exports = (app) => {
-   app.get('/',(req,res) => {
-        res.redirect('login.ejs')
-    })
     
     
 // FACEBOOK AUTH ROUTES
@@ -13,7 +10,7 @@ module.exports = (app) => {
         scope : ['email'] }));
  
     app.get('/auth/facebook/callback',passport.authenticate('facebook', { 
-        successRedirect: '/landing.ejs',
+        successRedirect: '/',
         failureRedirect: '/login' 
     }));
 
@@ -24,7 +21,7 @@ module.exports = (app) => {
         scope: ['r_basicprofile', 'r_emailaddress'] }));
 
     app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-        successRedirect: '/landing.ejs',
+        successRedirect: '/',
         failureRedirect: '/login.ejs'
     }));
 
