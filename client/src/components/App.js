@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route} from 'react-router-dom'; 
- 
+
  
 const Header = () => <h2> Header </h2>
 const Dashboard = () => <h2> Dashboard </h2>
@@ -18,5 +18,7 @@ const App= () => {
     </BrowserRouter>
     </div>)
 }
+
+ 
 
 export default App;
